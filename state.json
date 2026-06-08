@@ -1,0 +1,19 @@
+{
+  "type": "circular",
+  "nodes": [
+    {"value": 30, "address": "0x8A0C04000"},
+    {"value": 10, "address": "0x8A0C04020"},
+    {"value": 20, "address": "0x8A0C04040"},
+    {"value": 40, "address": "0x8A0C04060"}
+  ],
+  "head": 0,
+  "tail": 3,
+  "meta": {
+    "message": "Search: 40 found at index 3.",
+    "complexity": "O(n)",
+    "highlightIndex": 3,
+    "searchResultIndex": 3,
+    "loopDetected": true,
+    "steps": [0, 1, 2, 3]
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "name": "linked-list-visualizer-cpp-ui",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "start": "node server.js"
+  }
+}
+

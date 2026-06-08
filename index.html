@@ -1,0 +1,235 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Linked List Visualizer (C++ Powered)</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="app">
+      <header class="header">
+        <div class="titleBlock">
+          <h1>Linked List Visualizer</h1>
+          <p class="subtitle"></p>
+        </div>
+        <div class="status">
+          <div class="pill" id="pillType">type: singly</div>
+          <div class="pill" id="pillComplexity">complexity: —</div>
+        </div>
+      </header>
+
+      <section class="panel">
+        <div class="controls">
+          <div class="field">
+            <label for="listType">List type</label>
+            <select id="listType">
+              <option value="singly" selected>singly</option>
+              <option value="doubly">doubly</option>
+              <option value="circular">circular</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="valueInput">Value</label>
+            <input id="valueInput" type="number" placeholder="e.g. 10" />
+          </div>
+          <div class="field">
+            <label for="posInput">Position (0-based)</label>
+            <input id="posInput" type="number" placeholder="e.g. 2" />
+          </div>
+          <div class="field">
+            <label for="fileInput">Save/Load file</label>
+            <input id="fileInput" type="text" value="sample_state.json" />
+          </div>
+        </div>
+
+        <div class="buttons">
+          <div class="btnGroup">
+            <div class="groupTitle">Insert</div>
+            <button class="btn" data-op="insertAtBeginning">Insert Beginning</button>
+            <button class="btn" data-op="insertAtEnd">Insert End</button>
+            <button class="btn" data-op="insertAtPosition">Insert Position</button>
+          </div>
+          <div class="btnGroup">
+            <div class="groupTitle">Delete</div>
+            <button class="btn" data-op="deleteAtBeginning">Delete Beginning</button>
+            <button class="btn" data-op="deleteAtEnd">Delete End</button>
+            <button class="btn" data-op="deleteAtPosition">Delete Position</button>
+          </div>
+          <div class="btnGroup">
+            <div class="groupTitle">Operations</div>
+            <button class="btn" data-op="search">Search</button>
+            <button class="btn" data-op="reverse">Reverse</button>
+            <button class="btn" data-op="detectLoop">Detect Loop</button>
+          </div>
+          <div class="btnGroup">
+            <div class="groupTitle">State</div>
+            <button class="btn" data-op="undo">Undo</button>
+            <button class="btn" data-op="save">Save</button>
+            <button class="btn" data-op="load">Load</button>
+            <button class="btn danger" data-op="clear">Clear</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="viz">
+        <div class="vizHeader">
+          <div class="vizTitle">Visualization</div>
+          <div class="vizLegend">
+            <span class="legendItem"><span class="dot head"></span>Head</span>
+            <span class="legendItem"><span class="dot tail"></span>Tail</span>
+            <span class="legendItem"><span class="dot current"></span>Current</span>
+          </div>
+        </div>
+        <div id="listRow" class="listRow" aria-live="polite"></div>
+        <div id="message" class="message"></div>
+      </section>
+
+      <section class="theory" id="theory">
+        <div class="theoryHeader">
+          <div>
+            <h2 class="theoryTitle">Theory of Linked Lists</h2>
+            <p class="theorySubtitle">
+
+            </p>
+          </div>
+          <div class="theoryChips" aria-label="Key ideas">
+            <span class="chip"> Nodes</span>
+            <span class="chip">Pointers</span>
+            <span class="chip">Operations</span>
+            <span class="chip"> Use-cases</span>
+          </div>
+        </div>
+
+        <div class="theoryGrid">
+          <article class="tCard reveal">
+            <div class="tCardTop">
+              <div class="tIcon" aria-hidden="true">📘</div>
+              <div>
+                <h3>Introduction</h3>
+                <p>
+                  A <strong>linked list</strong> is a linear data structure made of <strong>nodes</strong>. Each node stores
+                  <strong>data</strong> and a <strong>link (pointer)</strong> to the next node (and sometimes the previous node).
+                  Unlike arrays, linked lists don’t require contiguous memory.
+                </p>
+              </div>
+            </div>
+
+            <div class="tSplit">
+              <div class="nodeExampleWrap">
+                <div class="nodeExampleTitle">Node Example</div>
+                <div class="nodeExample" aria-label="Linked list example: 10 to 20 to 30">
+                  <span class="nBox">10</span>
+                  <span class="nArrow">→</span>
+                  <span class="nBox">20</span>
+                  <span class="nArrow">→</span>
+                  <span class="nBox">30</span>
+                  <span class="nArrow muted">→</span>
+                  <span class="nNull">NULL</span>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <article class="tCard reveal">
+            <div class="tCardTop">
+              <div class="tIcon" aria-hidden="true">🧷</div>
+              <div>
+                <h3>Types</h3>
+                <p>There are three commonly used linked list types in practice.</p>
+              </div>
+            </div>
+
+            <div class="typeList">
+              <div class="typeItem">
+                <div class="typeHead">
+                  <span class="typeBadge">Singly</span>
+                  <span class="typeHint">next pointer</span>
+                </div>
+                <p>Each node points to the next node. Traversal is only forward.</p>
+              </div>
+
+              <div class="typeItem">
+                <div class="typeHead">
+                  <span class="typeBadge">Doubly</span>
+                  <span class="typeHint">prev + next</span>
+                </div>
+                <p>Each node points to both next and previous nodes. Traversal is forward and backward.</p>
+              </div>
+
+              <div class="typeItem">
+                <div class="typeHead">
+                  <span class="typeBadge">Circular</span>
+                  <span class="typeHint">tail → head</span>
+                </div>
+                <p>The last node links back to the head, forming a loop (can be singly or doubly circular).</p>
+              </div>
+            </div>
+          </article>
+
+          <article class="tCard reveal">
+            <div class="tCardTop">
+              <div class="tIcon" aria-hidden="true">🛠️</div>
+              <div>
+                <h3>Operations</h3>
+                <p>Common operations you’ll implement and visualize.</p>
+              </div>
+            </div>
+
+            <ul class="tList">
+              <li><strong>Insert</strong>: at beginning, end, or a specific position</li>
+              <li><strong>Delete</strong>: from beginning, end, or a specific position</li>
+              <li><strong>Traverse</strong>: visit nodes in order</li>
+              <li><strong>Search</strong>: find a value by scanning nodes</li>
+              <li><strong>Reverse</strong>: change link direction</li>
+              <li><strong>Detect loop</strong>: identify cycles (useful for circular / bugs)</li>
+            </ul>
+
+            <div class="miniNote">
+              Tip: many linked list operations are \(O(n)\) because you may need to walk node-by-node.
+            </div>
+          </article>
+
+          <article class="tCard reveal">
+            <div class="tCardTop">
+              <div class="tIcon" aria-hidden="true">⚖️</div>
+              <div>
+                <h3>Advantages &amp; Disadvantages</h3>
+
+              </div>
+            </div>
+
+            <div class="prosCons">
+              <div class="pcBox pros">
+                <div class="pcTitle">Advantages</div>
+                <ul class="tList compact">
+                  <li><strong>Dynamic size</strong>: easy to grow/shrink at runtime</li>
+                  <li><strong>Fast inserts/deletes</strong> near a known node (no shifting like arrays)</li>
+                  <li><strong>Memory flexibility</strong>: nodes can live anywhere in memory</li>
+                </ul>
+              </div>
+              <div class="pcBox cons">
+                <div class="pcTitle">Disadvantages</div>
+                <ul class="tList compact">
+                  <li><strong>No random access</strong>: must traverse to reach an index</li>
+                  <li><strong>Extra memory</strong>: pointers add overhead</li>
+                  <li><strong>Cache-unfriendly</strong>: scattered nodes can be slower than arrays</li>
+                </ul>
+              </div>
+            </div>
+          </article>
+
+        </div>
+      </section>
+
+      <footer class="footer">
+        <div class="footNote">
+          
+        </div>
+      </footer>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
+

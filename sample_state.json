@@ -1,0 +1,19 @@
+{
+  "type": "circular",
+  "nodes": [
+    {"value": 30, "address": "0x10562DA40"},
+    {"value": 40, "address": "0x10562DA60"},
+    {"value": 20, "address": "0x10562DA80"},
+    {"value": 10, "address": "0x10562D8B0"}
+  ],
+  "head": 0,
+  "tail": 3,
+  "meta": {
+    "message": "Saved current list to 'sample_state.json'.",
+    "complexity": "O(n)",
+    "highlightIndex": -1,
+    "searchResultIndex": -1,
+    "loopDetected": true,
+    "steps": []
+  }
+}
